@@ -52,7 +52,7 @@
 				<key>begin</key>
 				<string>\b(mod)\b\s*(\w+)\s*(\{)</string>
 				<key>end</key>
-				<string>(\})</string>
+				<string>\}</string>
 				<key>beginCaptures</key>
 				<dict>
 					<key>1</key> <!-- mod -->
@@ -139,9 +139,11 @@
 				<key>patterns</key>
 				<array>
 					<dict>
-						<key>match</key>
+						<key>begin</key>
 						<string>(\w+)(?:(\s*\())</string>
-						<key>captures</key>
+						<key>end</key>
+						<string>\)</string>
+						<key>beginCaptures</key>
 						<dict>
 							<key>1</key>
 							<dict>
@@ -149,6 +151,21 @@
 								<string>entity.name.function.fe</string>
 							</dict>
 						</dict>
+						<key>patterns</key>
+						<array>
+							<dict>
+								<key>match</key>
+								<string>(\s*,\s*)?(\b\w+\b)(\s*:\s*)([^\s\),]+)</string>
+								<key>captures</key>
+								<dict> <!-- parameter name -->
+									<key>2</key>
+									<dict>
+										<key>name</key>
+										<string>entity.name.parameter.fe</string>
+									</dict>
+								</dict>
+							</dict>
+						</array>
 					</dict>
 					<dict>
 						<key>include</key>

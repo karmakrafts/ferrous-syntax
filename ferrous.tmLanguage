@@ -119,13 +119,7 @@
 				<array>
 					<dict>
 						<key>include</key>
-						<string>#primitive_keyword</string>
-					</dict>
-					<dict>
-						<key>match</key>
-						<string>(\w+)</string>
-						<key>name</key>
-						<string>entity.name.type.fe</string>
+						<string>#type</string>
 					</dict>
 				</array>
 			</dict>
@@ -155,21 +149,42 @@
 						<array>
 							<dict>
 								<key>match</key>
-								<string>(\s*,\s*)?(\b\w+\b)(\s*:\s*)([^\s\),]+)</string>
+								<string>(\b\w+\b)(?:(\s*:\s*))(?=([^,\s\)]+))</string>
 								<key>captures</key>
-								<dict> <!-- parameter name -->
-									<key>2</key>
+								<dict>
+									<key>1</key> <!-- parameter name -->
 									<dict>
 										<key>name</key>
 										<string>entity.name.parameter.fe</string>
 									</dict>
 								</dict>
 							</dict>
+							<dict>
+								<key>include</key>
+								<string>#type</string>
+							</dict>
 						</array>
 					</dict>
 					<dict>
 						<key>include</key>
+						<string>#type</string>
+					</dict>
+				</array>
+			</dict>
+			<!-- type -->
+			<key>type</key>
+			<dict>
+				<key>patterns</key>
+				<array>
+					<dict>
+						<key>include</key>
 						<string>#keyword</string>
+					</dict>
+					<dict>
+						<key>match</key>
+						<string>(\b\w+\b)</string>
+						<key>name</key>
+						<string>entity.name.type.fe</string>
 					</dict>
 				</array>
 			</dict>

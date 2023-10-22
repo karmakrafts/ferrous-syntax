@@ -25,11 +25,27 @@
 			</dict>
 			<dict>
 				<key>include</key>
+				<string>#ml_string_literal</string>
+			</dict>
+			<dict>
+				<key>include</key>
+				<string>#string_literal</string>
+			</dict>
+			<dict>
+				<key>include</key>
+				<string>#attrib_usage</string>
+			</dict>
+			<dict>
+				<key>include</key>
 				<string>#function</string>
 			</dict>
 			<dict>
 				<key>include</key>
 				<string>#mod_block</string>
+			</dict>
+			<dict>
+				<key>include</key>
+				<string>#udt</string>
 			</dict>
 			<dict>
 				<key>include</key>
@@ -43,9 +59,289 @@
 				<key>include</key>
 				<string>#keyword</string>
 			</dict>
+			<dict>
+				<key>include</key>
+				<string>#int_literal</string>
+			</dict>
 		</array>
 		<key>repository</key>
 		<dict>
+			<!-- multiline string literal -->
+			<key>ml_string_literal</key>
+			<dict>
+				<key>begin</key>
+				<string>#"</string>
+				<key>end</key>
+				<string>(?&lt;!\\)"#</string>
+				<key>beginCaptures</key>
+				<dict>
+					<key>0</key>
+					<dict>
+						<key>name</key>
+						<string>punctuation.definition.string.begin.fe</string>
+					</dict>
+				</dict>
+				<key>endCaptures</key>
+				<dict>
+					<key>0</key>
+					<dict>
+						<key>name</key>
+						<string>punctuation.definition.string.end.fe</string>
+					</dict>
+				</dict>
+				<key>patterns</key>
+				<array>
+					<dict>
+						<key>match</key>
+						<string>[^("#)]*</string>
+						<key>name</key>
+						<string>string.quoted.multiline.fe</string>
+					</dict>
+				</array>
+			</dict>
+			<!-- string literal -->
+			<key>string_literal</key>
+			<dict>
+				<key>begin</key>
+				<string>"</string>
+				<key>end</key>
+				<string>(?&lt;!\\)"</string>
+				<key>beginCaptures</key>
+				<dict>
+					<key>0</key>
+					<dict>
+						<key>name</key>
+						<string>punctuation.definition.string.begin.fe</string>
+					</dict>
+				</dict>
+				<key>endCaptures</key>
+				<dict>
+					<key>0</key>
+					<dict>
+						<key>name</key>
+						<string>punctuation.definition.string.end.fe</string>
+					</dict>
+				</dict>
+				<key>patterns</key>
+				<array>
+					<dict>
+						<key>match</key>
+						<string>[^"]*</string>
+						<key>name</key>
+						<string>string.quoted.double.fe</string>
+					</dict>
+				</array>
+			</dict>
+			<!-- hex int literals -->
+			<key>hex_int_literal</key>
+			<dict>
+				<key>begin</key>
+				<string>0[xX][0-9a-fA-F]+</string>
+				<key>end</key>
+				<string>\s|,|;|\)|\}|(?=$)</string>
+				<key>beginCaptures</key>
+				<dict>
+					<key>0</key>
+					<dict>
+						<key>name</key>
+						<string>constant.numeric.int.hex.fe</string>
+					</dict>
+				</dict>
+				<key>patterns</key>
+				<array>
+					<dict>
+						<key>match</key>
+						<string>(i|u)(8|16|32|64))</string>
+						<key>name</key>
+						<string>constant.numeric.int.dec.fe</string>
+					</dict>
+				</array>
+			</dict>
+			<!-- bin int literals -->
+			<key>bin_int_literal</key>
+			<dict>
+				<key>begin</key>
+				<string>0[bB][01]+</string>
+				<key>end</key>
+				<string>\s|,|;|\)|\}|(?=$)</string>
+				<key>beginCaptures</key>
+				<dict>
+					<key>0</key>
+					<dict>
+						<key>name</key>
+						<string>constant.numeric.int.bin.fe</string>
+					</dict>
+				</dict>
+				<key>patterns</key>
+				<array>
+					<dict>
+						<key>match</key>
+						<string>(i|u)(8|16|32|64))</string>
+						<key>name</key>
+						<string>constant.numeric.int.dec.fe</string>
+					</dict>
+				</array>
+			</dict>
+			<!-- oct int literals -->
+			<key>oct_int_literal</key>
+			<dict>
+				<key>begin</key>
+				<string>0[oO][0-7]+</string>
+				<key>end</key>
+				<string>\s|,|;|\)|\}|(?=$)</string>
+				<key>beginCaptures</key>
+				<dict>
+					<key>0</key>
+					<dict>
+						<key>name</key>
+						<string>constant.numeric.int.oct.fe</string>
+					</dict>
+				</dict>
+				<key>patterns</key>
+				<array>
+					<dict>
+						<key>match</key>
+						<string>(i|u)(8|16|32|64))</string>
+						<key>name</key>
+						<string>constant.numeric.int.dec.fe</string>
+					</dict>
+				</array>
+			</dict>
+			<!-- dec int literals -->
+			<key>dec_int_literal</key>
+			<dict>
+				<key>begin</key>
+				<string>(?:(?&lt;![0-9]))[0-9]+</string>
+				<key>end</key>
+				<string>\s|,|;|\)|\}|(?=$)</string>
+				<key>beginCaptures</key>
+				<dict>
+					<key>0</key>
+					<dict>
+						<key>name</key>
+						<string>constant.numeric.int.dec.fe</string>
+					</dict>
+				</dict>
+				<key>patterns</key>
+				<array>
+					<dict>
+						<key>match</key>
+						<string>((i|u)(8|16|32|64))|(f(32|64))</string>
+						<key>name</key>
+						<string>constant.numeric.int.dec.fe</string>
+					</dict>
+				</array>
+			</dict>
+			<!-- int literals -->
+			<key>int_literal</key>
+			<dict>
+				<key>patterns</key>
+				<array>
+					<dict>
+						<key>include</key>
+						<string>#oct_int_literal</string>
+					</dict>
+					<dict>
+						<key>include</key>
+						<string>#hex_int_literal</string>
+					</dict>
+					<dict>
+						<key>include</key>
+						<string>#bin_int_literal</string>
+					</dict>
+					<dict>
+						<key>include</key>
+						<string>#dec_int_literal</string>
+					</dict>
+				</array>
+			</dict>
+			<!-- attribute usage -->
+			<key>attrib_usage</key>
+			<dict>
+				<key>begin</key>
+				<string>(@\s*\b\w+\b)\s*</string>
+				<key>end</key>
+				<string>\s*(@|(?=$))</string>
+				<key>beginCaptures</key>
+				<dict>
+					<key>1</key>
+					<dict>
+						<key>name</key>
+						<string>storage.type.annotation.fe</string>
+					</dict>
+				</dict>
+				<key>patterns</key>
+				<array>
+					<dict>
+						<key>begin</key>
+						<string>\(</string>
+						<key>end</key>
+						<string>\)</string>
+						<key>patterns</key>
+						<array>
+							<dict>
+								<key>include</key>
+								<string>source.fe</string>
+							</dict>
+						</array>
+					</dict>
+				</array>
+			</dict>
+			<!-- field -->
+			<key>field</key>
+			<dict>
+				<key>begin</key>
+				<string>(\b\w+\b)\s*:\s*</string>
+				<key>end</key>
+				<string>\s*(;|(?=$))</string>
+				<key>beginCaptures</key>
+				<dict>
+					<key>1</key>
+					<dict>
+						<key>name</key>
+						<string>entity.name.field.fe</string>
+					</dict>
+				</dict>
+				<key>patterns</key>
+				<array>
+					<dict>
+						<key>include</key>
+						<string>#type</string>
+					</dict>
+				</array>
+			</dict>
+			<!-- udt -->
+			<key>udt</key>
+			<dict>
+				<key>begin</key>
+				<string>(\bstruct\b|\benum\bclass\b|\bclass\b|\btrait\b|\binterface\b|\battrib\b)\s*(\w+)\s*(\{)</string>
+				<key>end</key>
+				<string>\}</string>
+				<key>beginCaptures</key>
+				<dict>
+					<key>1</key> <!-- mod -->
+					<dict>
+						<key>name</key>
+						<string>keyword.fe</string>
+					</dict>
+					<key>2</key> <!-- IDENT -->
+					<dict>
+						<key>name</key>
+						<string>entity.name.namespace.fe</string>
+					</dict>
+				</dict>
+				<key>patterns</key> <!-- SCOPE -->
+				<array>
+					<dict>
+						<key>include</key>
+						<string>#field</string>
+					</dict>
+					<dict>
+						<key>include</key>
+						<string>source.fe</string>
+					</dict>
+				</array>
+			</dict>
 			<!-- module block -->
 			<key>mod_block</key>
 			<dict>
@@ -59,6 +355,11 @@
 					<dict>
 						<key>name</key>
 						<string>keyword.fe</string>
+					</dict>
+					<key>2</key> <!-- IDENT -->
+					<dict>
+						<key>name</key>
+						<string>entity.name.namespace.fe</string>
 					</dict>
 				</dict>
 				<key>patterns</key> <!-- SCOPE -->

@@ -151,7 +151,7 @@
 				<array>
 					<dict>
 						<key>match</key>
-						<string>(i|u)(8|16|32|64))</string>
+						<string>(i|u)(8|16|32|64)</string>
 						<key>name</key>
 						<string>constant.numeric.int.dec.fe</string>
 					</dict>
@@ -176,7 +176,7 @@
 				<array>
 					<dict>
 						<key>match</key>
-						<string>(i|u)(8|16|32|64))</string>
+						<string>(i|u)(8|16|32|64)</string>
 						<key>name</key>
 						<string>constant.numeric.int.dec.fe</string>
 					</dict>
@@ -201,7 +201,7 @@
 				<array>
 					<dict>
 						<key>match</key>
-						<string>(i|u)(8|16|32|64))</string>
+						<string>(i|u)(8|16|32|64)</string>
 						<key>name</key>
 						<string>constant.numeric.int.dec.fe</string>
 					</dict>
@@ -540,7 +540,7 @@
 				<string>\b(stackalloc|interface|bitfield|override|callconv|alignof|virtual|literal
 					|default|sizeof|vaargs|return|extern|struct|attrib|delete|atomic|panic
 					|token|while|macro|const|class|trait|ident|super|when|else|loop|type|expr
-					|enum|goto|null|this|new|for|pub|use|mod|inl|tls|let|mut|fun|as|is|in|op|if|do)\b</string>
+					|enum|goto|null|this|new|for|pub|use|mod|inl|tls|let|mut|fun|get|set|as|is|in|op|if|do)\b</string>
 			</dict>
 			<key>primitive_keyword</key>
 			<dict>

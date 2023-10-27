@@ -41,10 +41,6 @@
 			</dict>
 			<dict>
 				<key>include</key>
-				<string>#function</string>
-			</dict>
-			<dict>
-				<key>include</key>
 				<string>#type_alias</string>
 			</dict>
 			<dict>
@@ -53,19 +49,88 @@
 			</dict>
 			<dict>
 				<key>include</key>
+				<string>#function</string>
+			</dict>
+			<dict>
+				<key>include</key>
 				<string>#call_conv_mod</string>
 			</dict>
 			<dict>
 				<key>include</key>
-				<string>#keyword</string>
+				<string>#statement</string>
 			</dict>
 			<dict>
 				<key>include</key>
 				<string>#int_literal</string>
 			</dict>
+			<dict>
+				<key>include</key>
+				<string>#keyword</string>
+			</dict>
 		</array>
 		<key>repository</key>
 		<dict>
+			<!-- statements -->
+			<key>statement</key>
+			<dict>
+				<key>patterns</key>
+				<array>
+					<dict>
+						<key>include</key>
+						<string>#return_statement</string>
+					</dict>
+					<dict>
+						<key>include</key>
+						<string>#expr</string>
+					</dict>
+				</array>
+			</dict>
+			<!-- return statements -->
+			<key>return_statement</key>
+			<dict>
+				<key>begin</key>
+				<string>\breturn\b</string>
+				<key>end</key>
+				<string>$|;</string>
+				<key>beginCaptures</key>
+				<dict>
+					<key>0</key>
+					<dict>
+						<key>name</key>
+						<string>keyword.fe</string>
+					</dict>
+				</dict>
+				<key>patterns</key>
+				<array>
+					<dict>
+						<key>include</key>
+						<string>#expr</string>
+					</dict>
+				</array>
+			</dict>
+			<!-- expressions -->
+			<key>expr</key>
+			<dict>
+				<key>patterns</key>
+				<array>
+					<dict>
+						<key>include</key>
+						<string>#keyword</string>
+					</dict>
+					<dict>
+						<key>include</key>
+						<string>#ref_expr</string>
+					</dict>
+				</array>
+			</dict>
+			<!-- reference expressions -->
+			<key>ref_expr</key>
+			<dict>
+				<key>match</key>
+				<string>[a-zA-Z_]+[a-zA-Z_0-9]*</string>
+				<key>name</key>
+				<string>entity.name.variable.fe</string>
+			</dict>
 			<!-- multiline string literal -->
 			<key>ml_string_literal</key>
 			<dict>

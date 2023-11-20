@@ -351,7 +351,7 @@
 			<key>hex_int_literal</key>
 			<dict>
 				<key>begin</key>
-				<string>0[xX][0-9a-fA-F]+</string>
+				<string>0[xX][0-9a-fA-F_]+</string>
 				<key>end</key>
 				<string>\s|,|;|\)|\}|(?=$)</string>
 				<key>beginCaptures</key>
@@ -376,7 +376,7 @@
 			<key>bin_int_literal</key>
 			<dict>
 				<key>begin</key>
-				<string>0[bB][01]+</string>
+				<string>0[bB][01_]+</string>
 				<key>end</key>
 				<string>\s|,|;|\)|\}|(?=$)</string>
 				<key>beginCaptures</key>
@@ -401,7 +401,7 @@
 			<key>oct_int_literal</key>
 			<dict>
 				<key>begin</key>
-				<string>0[oO][0-7]+</string>
+				<string>0[oO][0-7_]+</string>
 				<key>end</key>
 				<string>\s|,|;|\)|\}|(?=$)</string>
 				<key>beginCaptures</key>
@@ -426,7 +426,7 @@
 			<key>real_literal</key>
 			<dict>
 				<key>begin</key>
-				<string>(?:(?&lt;![0-9a-zA-Z_]))[0-9]+\.(?:[0-9]*)</string>
+				<string>(?:(?&lt;![0-9a-zA-Z_]))[0-9_]+\.(?:[0-9_]*)</string>
 				<key>end</key>
 				<string>\s|,|;|\)|\}|(?=$)</string>
 				<key>beginCaptures</key>
@@ -451,7 +451,7 @@
 			<key>dec_int_literal</key>
 			<dict>
 				<key>begin</key>
-				<string>(?:(?&lt;![0-9a-zA-Z_]))[0-9]+</string>
+				<string>(?:(?&lt;![0-9a-zA-Z_]))[0-9_]+</string>
 				<key>end</key>
 				<string>\s|,|;|\)|\}|(?=$)</string>
 				<key>beginCaptures</key>
@@ -554,7 +554,7 @@
 			<key>udt</key>
 			<dict>
 				<key>begin</key>
-				<string>(\bstruct\b|\benum\bclass\b|\bclass\b|\btrait\b|\binterface\b|\battrib\b)\s*([a-zA-Z_]+[a-zA-Z_0-9]*)\s*(\{)</string>
+				<string>(\bstruct\b|\btrait\b|\binterface\b|\battrib\b)\s*([a-zA-Z_]+[a-zA-Z_0-9]*)\s*(\{)</string>
 				<key>end</key>
 				<string>\}</string>
 				<key>beginCaptures</key>
@@ -779,7 +779,7 @@
 				<key>match</key>
 				<string>(\bunreachable\b|\bstackalloc\b|\binterface\b|\bbitfield\b|\boverride\b|\bcallconv\b|\balignof\b|\bvirtual\b|\bliteral\b
 					|\bdefault\b|\bsizeof\b|\bvaargs\b|\breturn\b|\bextern\b|\bstruct\b|\battrib\b|\bdelete\b|\batomic\b|\bpanic\b
-					|\btoken\b|\bwhile\b|\bmacro\b|\bconst\b|\bclass\b|\btrait\b|\bident\b|\bsuper\b|\bwhen\b|\belse\b|\bloop\b|\btype\b|\bexpr\b
+					|\btoken\b|\bwhile\b|\bmacro\b|\bconst\b|\btrait\b|\bident\b|\bsuper\b|\bwhen\b|\belse\b|\bloop\b|\btype\b|\bexpr\b
 					|\benum\b|\bgoto\b|\bnull\b|\bthis\b|\basm\b|\bnew\b|\bfor\b|\bpub\b|\buse\b|\bmod\b|\binl\b|\btls\b|\blet\b|\bmut\b|\bfun\b|\bget\b|\bset\b|\bas\b\??|!?\bis\b|!?\bin\b|\bop\b|\bif\b|\bdo\b)</string>
 			</dict>
 			<key>primitive_keyword</key>

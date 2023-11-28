@@ -499,12 +499,12 @@
 			<key>attrib_usage</key>
 			<dict>
 				<key>begin</key>
-				<string>(@\s*\b[a-zA-Z_]+[a-zA-Z_0-9]*\b)</string>
+				<string>@\s*[a-zA-Z_]+[a-zA-Z_0-9]*</string>
 				<key>end</key>
 				<string>\s+|\n</string>
 				<key>beginCaptures</key>
 				<dict>
-					<key>1</key>
+					<key>0</key>
 					<dict>
 						<key>name</key>
 						<string>storage.type.annotation.fe</string>
@@ -512,6 +512,12 @@
 				</dict>
 				<key>patterns</key>
 				<array>
+					<dict>
+						<key>match</key>
+						<string>::[a-zA-Z_]+[a-zA-Z_0-9]*</string>
+						<key>name</key>
+						<string>storage.type.annotation.fe</string>
+					</dict>
 					<dict>
 						<key>begin</key>
 						<string>\(</string>

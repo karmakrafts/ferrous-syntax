@@ -189,7 +189,7 @@ class FerrousLexer(RegexLexer):
                 bygroups(Punctuation, using(this), Punctuation))
         ],
         'attrib_usage': [
-            (r'@\s*\b[a-zA-Z_]+[a-zA-Z_0-9]*\b', Name.Decorator)
+            (r'@\s*[a-zA-Z_]+[a-zA-Z_0-9]*(::[a-zA-Z_]+[a-zA-Z_0-9]*)*?', Name.Decorator)
         ],
         'callconv_mod': [
             (r'(\bcallconv\b)(\s*)(\()([^\)]+)(\))', 

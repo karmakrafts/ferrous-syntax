@@ -196,11 +196,38 @@
 					</dict>
 				</array>
 			</dict>
+			<!-- panic statements -->
+			<key>panic_statement</key>
+			<dict>
+				<key>begin</key>
+				<string>(\bpanic)\s*\(</string>
+				<key>end</key>
+				<string>\)</string>
+				<key>beginCaptures</key>
+				<dict>
+					<key>1</key>
+					<dict>
+						<key>name</key>
+						<string>keyword.fe</string>
+					</dict>
+				</dict>
+				<key>patterns</key>
+				<array>
+					<dict>
+						<key>include</key>
+						<string>#expr</string>
+					</dict>
+				</array>
+			</dict>
 			<!-- statements -->
 			<key>statement</key>
 			<dict>
 				<key>patterns</key>
 				<array>
+					<dict>
+						<key>include</key>
+						<string>#panic_statement</string>
+					</dict>
 					<dict>
 						<key>include</key>
 						<string>#asm_statement</string>

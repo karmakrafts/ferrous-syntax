@@ -17,11 +17,11 @@
 		<array>
 			<dict>
 				<key>include</key>
-				<string>#block_comment</string>
+				<string>#inline_comment</string>
 			</dict>
 			<dict>
 				<key>include</key>
-				<string>#inline_comment</string>
+				<string>#block_comment</string>
 			</dict>
 			<dict>
 				<key>include</key>
@@ -296,9 +296,32 @@
 					</dict>
 					<dict>
 						<key>include</key>
+						<string>#special_ref_expr</string>
+					</dict>
+					<dict>
+						<key>include</key>
 						<string>#ref_expr</string>
 					</dict>
 				</array>
+			</dict>
+			<!-- special reference expressions -->
+			<key>special_ref_expr</key>
+			<dict>
+				<key>match</key>
+				<string>(\b(fun|this|super)\b)\.([a-zA-Z_]+[a-zA-Z_0-9]*)</string>
+				<key>captures</key>
+				<dict>
+					<key>1</key>
+					<dict>
+						<key>name</key>
+						<string>keyword.fe</string>
+					</dict>
+					<key>2</key>
+					<dict>
+						<key>name</key>
+						<string>entity.name.variable.fe</string>
+					</dict>
+				</dict>
 			</dict>
 			<!-- reference expressions -->
 			<key>ref_expr</key>
@@ -701,7 +724,7 @@
 			<key>function</key>
 			<dict>
 				<key>begin</key>
-				<string>(?=\s*(?:fun))</string>
+				<string>(?=\s*(?:fun)(?!\.))</string>
 				<key>end</key>
 				<string>}|(?=$)</string>
 				<key>patterns</key>
@@ -810,7 +833,7 @@
 				<key>name</key>
 				<string>keyword.misc.fe</string>
 				<key>match</key>
-				<string>(\bunreachable\b|\bstackalloc\b|\binterface\b|\bbitfield\b|\boverride\b|\bcallconv\b|\balignof\b|\bvirtual\b|\bliteral\b
+				<string>(\bunreachable\b|\bstackalloc\b|\binterface\b|\boverride\b|\bcallconv\b|\balignof\b|\bvirtual\b|\bliteral\b
 					|\bdefault\b|\bsizeof\b|\bvaargs\b|\breturn\b|\bextern\b|\bstruct\b|\battrib\b|\bdelete\b|\batomic\b|\bpanic\b
 					|\btoken\b|\bwhile\b|\bmacro\b|\bconst\b|\btrait\b|\bident\b|\bsuper\b|\bwhen\b|\belse\b|\bloop\b|\btype\b|\bexpr\b
 					|\benum\b|\bgoto\b|\bnull\b|\bthis\b|\basm\b|\bnew\b|\bfor\b|\bpub\b|\buse\b|\bmod\b|\binl\b|\btls\b|\blet\b|\bmut\b|\bfun\b|\bget\b|\bset\b|\bas\b\??|!?\bis\b|!?\bin\b|\bop\b|\bif\b|\bdo\b)</string>

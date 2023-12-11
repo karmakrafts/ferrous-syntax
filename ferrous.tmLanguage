@@ -29,10 +29,6 @@
 			</dict>
 			<dict>
 				<key>include</key>
-				<string>#mod_block</string>
-			</dict>
-			<dict>
-				<key>include</key>
 				<string>#type_alias</string>
 			</dict>
 			<dict>
@@ -58,6 +54,14 @@
 		</array>
 		<key>repository</key>
 		<dict>
+			<!-- operators -->
+			<key>operator</key>
+			<dict>
+				<key>match</key>
+				<string>(\.\.(\=?))</string>
+				<key>name</key>
+				<string>punctuation.operator.fe</string>
+			</dict>
 			<!-- inline assembly statements -->
 			<key>asm_statement</key>
 			<dict>
@@ -238,15 +242,19 @@
 					</dict>
 					<dict>
 						<key>include</key>
+						<string>#do_block</string>
+					</dict>
+					<dict>
+						<key>include</key>
 						<string>#expr</string>
 					</dict>
 				</array>
 			</dict>
-			<!-- return statements -->
+			<!-- return/yield statements -->
 			<key>return_statement</key>
 			<dict>
 				<key>begin</key>
-				<string>\breturn\b</string>
+				<string>\breturn\b|\byield\b</string>
 				<key>end</key>
 				<string>$|;</string>
 				<key>beginCaptures</key>
@@ -264,6 +272,43 @@
 						<string>#expr</string>
 					</dict>
 				</array>
+			</dict>
+			<!-- loops -->
+			<key>loop</key>
+			<dict>
+				<key>begin</key>
+				<string>(\bloop\b)\{</string>
+				<key>end</key>
+				<string>\}</string>
+				<key>beginCaptures</key>
+				<dict>
+					<key>1</key>
+					<dict>
+						<key>name</key>
+						<string>keyword.fe</string>
+					</dict>
+				</dict>
+				<key>patterns</key>
+				<array>
+					<dict>
+						<key>include</key>
+						<string>#statement</string>
+					</dict>
+				</array>
+			</dict>
+			<!-- for loops -->
+			<key>indexed_for_loop</key>
+			<dict>
+			</dict>
+			<key>ranged_for_loop</key>
+			<dict>
+			</dict>
+			<!-- while loops -->
+			<key>while_loop</key>
+			<dict>
+			</dict>
+			<key>do_block</key>
+			<dict>
 			</dict>
 			<!-- expressions -->
 			<key>expr</key>
@@ -284,11 +329,19 @@
 					</dict>
 					<dict>
 						<key>include</key>
-						<string>#real_literal</string>
+						<string>#loop</string>
 					</dict>
 					<dict>
 						<key>include</key>
-						<string>#int_literal</string>
+						<string>#while_loop</string>
+					</dict>
+					<dict>
+						<key>include</key>
+						<string>#indexed_for_loop</string>
+					</dict>
+					<dict>
+						<key>include</key>
+						<string>#ranged_for_loop</string>
 					</dict>
 					<dict>
 						<key>include</key>
@@ -301,6 +354,14 @@
 					<dict>
 						<key>include</key>
 						<string>#ref_expr</string>
+					</dict>
+					<dict>
+						<key>include</key>
+						<string>#real_literal</string>
+					</dict>
+					<dict>
+						<key>include</key>
+						<string>#int_literal</string>
 					</dict>
 				</array>
 			</dict>
@@ -403,7 +464,7 @@
 				<key>begin</key>
 				<string>0[xX][0-9a-fA-F_]+</string>
 				<key>end</key>
-				<string>\s|,|;|\)|\}|(?=$)</string>
+				<string>(?=$|,|;|\)|\}|\s)</string>
 				<key>beginCaptures</key>
 				<dict>
 					<key>0</key>
@@ -428,7 +489,7 @@
 				<key>begin</key>
 				<string>0[bB][01_]+</string>
 				<key>end</key>
-				<string>\s|,|;|\)|\}|(?=$)</string>
+				<string>(?=$|,|;|\)|\}|\s)</string>
 				<key>beginCaptures</key>
 				<dict>
 					<key>0</key>
@@ -453,7 +514,7 @@
 				<key>begin</key>
 				<string>0[oO][0-7_]+</string>
 				<key>end</key>
-				<string>\s|,|;|\)|\}|(?=$)</string>
+				<string>(?=$|,|;|\)|\}|\s)</string>
 				<key>beginCaptures</key>
 				<dict>
 					<key>0</key>
@@ -478,7 +539,7 @@
 				<key>begin</key>
 				<string>(?:(?&lt;![0-9a-zA-Z_]))[0-9_]+\.(?:[0-9_]*)</string>
 				<key>end</key>
-				<string>\s|,|;|\)|\}|(?=$)</string>
+				<string>(?=$|,|;|\)|\}|\s)</string>
 				<key>beginCaptures</key>
 				<dict>
 					<key>0</key>
@@ -632,34 +693,6 @@
 						<key>include</key>
 						<string>#field</string>
 					</dict>
-					<dict>
-						<key>include</key>
-						<string>source.fe</string>
-					</dict>
-				</array>
-			</dict>
-			<!-- module block -->
-			<key>mod_block</key>
-			<dict>
-				<key>begin</key>
-				<string>\b(mod)\b\s*([a-zA-Z_]+[a-zA-Z_0-9]*)\s*(\{)</string>
-				<key>end</key>
-				<string>\}</string>
-				<key>beginCaptures</key>
-				<dict>
-					<key>1</key> <!-- mod -->
-					<dict>
-						<key>name</key>
-						<string>keyword.fe</string>
-					</dict>
-					<key>2</key> <!-- IDENT -->
-					<dict>
-						<key>name</key>
-						<string>entity.name.namespace.fe</string>
-					</dict>
-				</dict>
-				<key>patterns</key> <!-- SCOPE -->
-				<array>
 					<dict>
 						<key>include</key>
 						<string>source.fe</string>
@@ -833,9 +866,9 @@
 				<key>name</key>
 				<string>keyword.misc.fe</string>
 				<key>match</key>
-				<string>(\bunreachable\b|\bstackalloc\b|\binterface\b|\boverride\b|\bcallconv\b|\balignof\b|\bvirtual\b|\bliteral\b
-					|\bdefault\b|\bsizeof\b|\bvaargs\b|\breturn\b|\bextern\b|\bstruct\b|\battrib\b|\bdelete\b|\batomic\b|\bpanic\b
-					|\btoken\b|\bwhile\b|\bmacro\b|\bconst\b|\btrait\b|\bident\b|\bsuper\b|\bwhen\b|\belse\b|\bloop\b|\btype\b|\bexpr\b
+				<string>(\bunreachable\b|\bstackalloc\b|\binterface\b|\boverride\b|\bcontinue\b|\bcallconv\b|\balignof\b|\bvirtual\b|\bliteral\b
+					|\bdefault\b|\bunsafe\b|\bsizeof\b|\bvaargs\b|\breturn\b|\bextern\b|\bstruct\b|\battrib\b|\bdelete\b|\batomic\b|\bpanic\b
+					|\btoken\b|\bwhile\b|\bmacro\b|\bconst\b|\btrait\b|\bident\b|\bbreak\b|\bsuper\b|\byield\b|\bwhen\b|\belse\b|\bloop\b|\btype\b|\bexpr\b
 					|\benum\b|\bgoto\b|\bnull\b|\bthis\b|\basm\b|\bnew\b|\bfor\b|\bpub\b|\buse\b|\bmod\b|\binl\b|\btls\b|\blet\b|\bmut\b|\bfun\b|\bget\b|\bset\b|\bas\b\??|!?\bis\b|!?\bin\b|\bop\b|\bif\b|\bdo\b)</string>
 			</dict>
 			<key>primitive_keyword</key>

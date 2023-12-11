@@ -77,10 +77,11 @@ class FerrousLexer(RegexLexer):
         ],
         'type_alias_type': [
             (r';|$', Punctuation, '#pop'),
+            include('misc_keyword'),
             include('type')
         ],
         'type': [
-            (r'\bmut\b', Keyword),
+            include('misc_keyword'),
             include('function_type'),
             include('primitive_keyword'),
             include('qualified_ident'),
@@ -220,11 +221,11 @@ class FerrousLexer(RegexLexer):
             (r'0[bB][01_]+', Number.Bin)
         ],
         'misc_keyword': [
-            (r'(\bunreachable\b|\bstackalloc\b|\binterface\b|\boverride\b|\bcallconv\b|\balignof\b|\bvirtual\b|\bliteral\b'
-             r'|\bdefault\b|\bsizeof\b|\bvaargs\b|\breturn\b|\bextern\b|\bstruct\b|\battrib\b|\bdelete\b|\batomic\b|\bpanic\b'
-             r'|\btoken\b|\bwhile\b|\bmacro\b|\bconst\b|\btrait\b|\bident\b|\bsuper\b|\bwhen\b|\belse\b|\bloop\b|\btype\b|\bexpr\b'
-             r'|\benum\b|\bgoto\b|\bnull\b|\bthis\b|\basm\b|\bnew\b|\bfor\b|\bpub\b|\buse\b|\bmod\b|\binl\b|\btls\b|\blet\b|\bmut\b|\bfun\b'
-             r'|\bget\b|\bset\b|(\bas\b\??)|(!?\bis\b)|(!?\bin\b)|\bop\b|\bif\b|\bdo\b)', Keyword)
+            (r'(\bunreachable\b|\bstackalloc\b|\binterface\b|\boverride\b|\bcontinue\b|\bcallconv\b|\balignof\b|\bvirtual\b|\bliteral\b'
+             r'|\bdefault\b|\bunsafe\b|\bsizeof\b|\bvaargs\b|\breturn\b|\bextern\b|\bstruct\b|\battrib\b|\bdelete\b|\batomic\b|\bpanic\b'
+             r'|\btoken\b|\bwhile\b|\bmacro\b|\bconst\b|\btrait\b|\bident\b|\bbreak\b|\bsuper\b|\byield\b|\bwhen\b|\belse\b|\bloop\b|\btype\b|\bexpr\b'
+             r'|\benum\b|\bgoto\b|\bnull\b|\bthis\b|\basm\b|\bnew\b|\bfor\b|\bpub\b|\buse\b|\bmod\b|\binl\b|\btls\b|\blet\b|\bmut\b|\bfun\b|\bget\b'
+             r'\bset\b|\bas\b\??|!?\bis\b|!?\bin\b|\bop\b|\bif\b|\bdo\b)', Keyword)
         ],
         'primitive_keyword': [
             (r'\b(([iu]size)|void|char|bool|string)\b|([iu][0-9]+)|(f(16|32|64|128))', Keyword.Type)

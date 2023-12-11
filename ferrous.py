@@ -27,20 +27,12 @@ class FerrousLexer(RegexLexer):
         'root': [
             include('comment'),
             include('attrib_usage'),
-            include('mod_block'),
             include('udt'),
             include('function'),
             include('statement'),
             include('misc_keyword'),
+            include('generic_param'),
             include('default')
-        ],
-        'mod_block': [
-            (r'(\bmod\b)(\s*?)([^\s{]+)(\s*?)({)', 
-                bygroups(Keyword, Whitespace, using(this), Whitespace, Punctuation), 'mod_block_body')
-        ],
-        'mod_block_body': [
-            (r'}', Punctuation, '#pop'),
-            include('root')
         ],
         'operator': [
             (r'[=+\-*/%<>!&|\^]', Operator) # Covers all combinations of operators wihout any validation
@@ -73,7 +65,10 @@ class FerrousLexer(RegexLexer):
             include('type')
         ],
         'type_alias': [
-            (r'(\btype\b)(\s*)([^\s=]+)(\s*)', bygroups(Keyword, Whitespace, Name, Whitespace), 'type_alias_type')
+            (r'(\btype\b)(\s*)([^\s=]+)(\s*)(<)([^>]+)(>)', 
+                bygroups(Keyword, Whitespace, Name, Whitespace, Punctuation, using(this), Punctuation), 'type_alias_type'),
+            (r'(\btype\b)(\s*)([^\s=]+)', 
+                bygroups(Keyword, Whitespace, Name), 'type_alias_type')
         ],
         'type_alias_type': [
             (r';|$', Punctuation, '#pop'),
@@ -86,7 +81,7 @@ class FerrousLexer(RegexLexer):
             include('primitive_keyword'),
             include('qualified_ident'),
             include('ident'),
-            (r'\*|&', Punctuation)
+            (r'[*&]', Punctuation)
         ],
         'function': [
             (r'(\bfun\b)(\s*?)([^\(\s]+)(\s*?)(<)([^>]+)(>)(\s*?)(\()', 
